@@ -23,36 +23,8 @@ class sudoers(
     }
   }
 
-  file { 'check_sudoers_file' :
-    ensure  => 'present', 
-    path    => $check_target,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
-    content => $content,
-    notify  => Exec[ 'check_sudoers_cmd' ],
-  }
-
-  exec { 'check_sudoers_cmd' :
-    command     => "visudo -cf $check_target",
-    path        => $path,
-    refreshonly => true,
-    before      => File[ 'sudoers' ],
-  }
-
-  file { 'sudoers' :
-    ensure  => 'present', 
-    path    => $target,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
-    source  => $check_target,
-    notify  => Exec[ 'sudoers_cleanup_cmd' ],
-  }
-
-  exec { 'sudoers_cleanup_cmd' :
-    command     => "/bin/rm -f $check_target",
-    path        => $path,
-    refreshonly => true,
+  sudoers::frag { 'check_sudoers_file' :
+    path => $check_target,
+    prio => '10',  
   }
 }
