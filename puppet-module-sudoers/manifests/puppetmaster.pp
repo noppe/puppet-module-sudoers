@@ -20,9 +20,9 @@ class sudoers::puppetmaster(
     mode   => '0755', 
   } 
 
-  if $fetcher in 'fetch2.pl', 'fetch' {
+  if $fetcher in [ 'fetch2.pl', 'fetch' ] {
     file { 'fetcher' :
-      path    => "/opt/eis_pua/bin/${fetcher}"' :
+      path    => "/opt/eis_pua/bin/${fetcher}",
       ensure  => 'file',
       owner   => 'root',
       group   => 'root',
@@ -32,7 +32,7 @@ class sudoers::puppetmaster(
     }
   } else {
     file { 'fetcher' :
-      path    => "/opt/eis_pua/bin/${fetcher}"' :
+      path    => "/opt/eis_pua/bin/${fetcher}",
       ensure  => 'file',
       owner   => 'root',
       group   => 'root',
