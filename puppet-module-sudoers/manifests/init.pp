@@ -15,7 +15,7 @@ class sudoers(
   
   case $source {
     'PUA' : {
-      $rules = generate( '/opt/eis_pua/bin/rules', $::hostname )
+      $rules = generate( '/opt/eis_pua/bin/rules', $::hostname, $::fqdn, $::ipaddress)
       $content = template( 'sudoers/sudoers.erb' )
     }
     default : {
@@ -23,8 +23,32 @@ class sudoers(
     }
   }
 
-  sudoers::frag { 'check_sudoers_file' :
-    path => $check_target,
-    prio => '10',  
+  file { 'check_sudoers_file' :
+    ensure  => 'present', 
+    path    => $check_target,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0400',
+    content => $content,
+    notify  => Exec[ 'check_sudoers_cmd' ],
+  }
+
+  exec { 'check_sudoers_cmd' :
+    command     => "visudo -cf $check_target",
+    path        => $path,
+    refreshonly => true,
+    notify      => Exec[ 'deploy_sudoers' ],
+  }
+
+  exec { 'deploy_sudoers' :
+    command => "cp -f \"${check_target}\" \"${target}\"",
+    path    => $path,
+    notify  => Exec[ 'sudoers_cleanup_cmd' ],
+  }
+
+  exec { 'sudoers_cleanup_cmd' :
+    command     => "/bin/rm -f ${check_target}",
+    path        => $path,
+    refreshonly => true,
   }
 }
