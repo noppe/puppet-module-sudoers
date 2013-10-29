@@ -15,7 +15,7 @@ class sudoers(
   
   case $source {
     'PUA' : {
-      $rules = generate( '/opt/eis_pua/bin/rules', $::hostname, $::fqdn, $::ipaddess)
+      $rules = generate( '/opt/eis_pua/bin/rules', $::hostname, $::fqdn, $::ipaddress)
       $content = template( 'sudoers/sudoers.erb' )
     }
     default : {
