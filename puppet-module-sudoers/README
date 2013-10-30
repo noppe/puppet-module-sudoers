@@ -1,0 +1,7 @@
+a short install guide:
+install rules from INSTALL-files in the referred folder on the puppet masters
+add public key for PUA host in /var/lib/puppet/ssl/puahostfile
+edit puauser@puahost to correlate with your environment 
+generate a keyfile for the PUA user which will reside on the puppet master(s) and copy the public key to the .ssh/authorized_keys
+change /path/to/id_rsa to correlate with the generated private ssh-keyfile for the pua-user (since in some environments the puppetuser does not have a home folder)
+(permissions for the keyfile should be 600 and owned by the puppet-user)
