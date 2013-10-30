@@ -10,7 +10,7 @@ my $highmask = 30;
 my $usenoncidr = 1;
 my $usecidr = 1;
 # set to 0 to run command locally and 1 to use ssh
-my $usessh = 0;
+my $usessh = 1;
 # command that serves PUA data
 my $command = ('/opt/eis_pua/bin/serve');
 #my @cmd = ('/opt/eis_pua/bin/serve');
