@@ -10,12 +10,13 @@ class sudoers(
   $check_target = '/etc/sudoers.d/._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
+  $fetcher      = $sudoers::fetcher,
 
 ) {
   
   case $source {
     'PUA' : {
-      $rules = generate( '/opt/eis_pua/bin/rules', $::hostname, $::fqdn, $::ipaddress)
+      $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
       $content = template( 'sudoers/sudoers.erb' )
     }
     default : {
