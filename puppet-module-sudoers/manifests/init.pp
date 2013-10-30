@@ -10,7 +10,7 @@ class sudoers(
   $check_target = '/etc/sudoers.d/._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
-  $fetcher      = $sudoers::fetcher,
+  $fetcher      = $sudoers::puppetmaster::fetcher,
 
 ) {
   
