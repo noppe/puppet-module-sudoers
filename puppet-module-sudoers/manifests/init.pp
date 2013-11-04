@@ -6,11 +6,10 @@
 class sudoers(
   $target       = '/etc/sudoers',
   $source       = 'PUA',
-  $defaults     = undef,
   $check_target = '/etc/sudoers.d/._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
-  $fetcher      = $sudoers::puppetmaster::fetcher,
+  $fetcher      = 'fetch2.pl',
 
 ) {
   
