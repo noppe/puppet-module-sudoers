@@ -41,9 +41,10 @@ class sudoers(
   }
 
   exec { 'deploy_sudoers' :
-    command => "cp -f \"${check_target}\" \"${target}\"",
-    path    => $path,
-    notify  => Exec[ 'sudoers_cleanup_cmd' ],
+    command     => "cp -f \"${check_target}\" \"${target}\"",
+    path        => $path,
+    refreshonly => true,
+    notify      => Exec[ 'sudoers_cleanup_cmd' ],
   }
 
   exec { 'sudoers_cleanup_cmd' :
