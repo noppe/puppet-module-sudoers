@@ -1,6 +1,9 @@
 class sudoers::puaserver(
-  $owner = 'root',
-  $group = 'root', 
+  $owner         = 'root',
+  $group         = 'root', 
+  $puatopdir     = '/srv/eis', 
+  $puaheadercmd  = 'cat sudo/sudo.aliases',
+  $puaextractcmd = 'sudoers3', 
 ) {
 
   file { '/opt/eis_pua' : 
@@ -30,4 +33,4 @@ class sudoers::puaserver(
     mode   => '0755',
   }
 }
-
+}
