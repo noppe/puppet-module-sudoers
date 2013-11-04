@@ -1,6 +1,8 @@
 class sudoers::puaserver(
   $owner = 'root',
   $group = 'root', 
+  $puatopdir = '/srv/eis', 
+  $puaextractcmd = 'sudoers3', 
 ) {
 
   file { '/opt/eis_pua' : 

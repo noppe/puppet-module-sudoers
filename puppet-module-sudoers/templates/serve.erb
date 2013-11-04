@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd /home/local/pua.2
+cd <%= @puatopdir %>
 . bin/activate
-python manage.py sudoers3 $@
+python manage.py <%= @puaextractcmd %> $@
