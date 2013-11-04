@@ -31,4 +31,4 @@ class sudoers::puaserver(
     group  => $group,
     mode   => '0755',
 }
-
+}
