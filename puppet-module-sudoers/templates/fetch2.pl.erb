@@ -60,7 +60,7 @@ foreach (@ip) {
 #print $output, "\n";
 push @cmd, $output;
 if (!system(@cmd)) {
- print "# fetched at ", strftime('%Y-%m-%d, %H:%M', localtime),  "\n";
+ print "# file sucessfully fetched \n";
 } else {
  warn "ssh failed!:", $!,"\n";
 }
