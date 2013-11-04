@@ -10,6 +10,9 @@ class sudoers(
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
   $fetcher      = 'fetch2.pl',
+  $owner        = 'root',
+  $group        = 'root',
+  $mode         = '0400',
 
 ) {
   
@@ -23,9 +26,6 @@ class sudoers(
     }
   }
 
-  $owner = 'local'
-  $group = undef
-  $mode  = '0400'
   file { 'check_sudoers_file' :
     ensure  => 'present', 
     path    => $check_target,
