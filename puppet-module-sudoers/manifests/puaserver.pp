@@ -33,4 +33,3 @@ class sudoers::puaserver(
     mode   => '0755',
   }
 }
-}
