@@ -28,5 +28,6 @@ class sudoers::puaserver(
     owner  => $owner,
     group  => $group,
     mode   => '0755',
+  }
 }
 
