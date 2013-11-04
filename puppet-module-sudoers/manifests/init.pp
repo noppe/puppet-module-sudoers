@@ -6,7 +6,8 @@
 class sudoers(
   $target       = '/etc/sudoers',
   $source       = 'PUA',
-  $check_target = '/etc/sudoers.d/._check_~',
+  $target_dir   = '/etc/sudoers.d',
+  $check_target = "${target_dir}/._check_~",
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
   $fetcher      = 'fetch2.pl',
@@ -24,6 +25,13 @@ class sudoers(
     default : {
       fail( "Sorry, I don't know how to handle ${source} yet." )
     }
+  }
+
+  file { $target_dir :
+    ensure => directory,
+    owner  => $owner,
+    group  => $group,
+    notify => File [ 'check_sudoers_file' ],
   }
 
   file { 'check_sudoers_file' :
