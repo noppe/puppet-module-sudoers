@@ -23,33 +23,42 @@ class sudoers(
     }
   }
 
+  $owner = 'local'
+  $group = undef
+  $mode  = '0400'
   file { 'check_sudoers_file' :
     ensure  => 'present', 
     path    => $check_target,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
+    owner   => $owner,
+    group   => $group,
+    mode    => $mode,
     content => $content,
     notify  => Exec[ 'check_sudoers_cmd' ],
   }
 
   exec { 'check_sudoers_cmd' :
-    command     => "visudo -cf $check_target",
+    command     => "visudo -cf ${check_target} && cp ${check_target} ${check_target}.ok",
     path        => $path,
     refreshonly => true,
-    notify      => Exec[ 'deploy_sudoers' ],
+    notify => Exec[ 'sudoers_cleanup_cmd' ],
   }
 
-  exec { 'deploy_sudoers' :
-    command     => "cp -f \"${check_target}\" \"${target}\"",
-    path        => $path,
-    refreshonly => true,
-    notify      => Exec[ 'sudoers_cleanup_cmd' ],
+  deploy_sudoers { $target : 
+    check_target => $check_target
   }
 
   exec { 'sudoers_cleanup_cmd' :
     command     => "/bin/rm -f ${check_target}",
     path        => $path,
     refreshonly => true,
+  }
+}
+
+define deploy_sudoers ($check_target) {
+  file { $name :
+    ensure => present,
+    path   => $name,
+    source => "${check_target}.ok",
+    subscribe => Exec[ 'check_sudoers_cmd' ],
   }
 }
