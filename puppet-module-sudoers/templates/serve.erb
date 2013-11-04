@@ -1,5 +1,9 @@
 #!/bin/sh
 
-cd /home/local/pua.2
+# This file is maintained by Puppet
+# Do not edit manualy or womanualy
+
+cd <%= @puatopdir %>
 . bin/activate
-python manage.py sudoers3 $@
+<%= @headercommand %>
+python manage.py <%= @exportcmd %> $@
