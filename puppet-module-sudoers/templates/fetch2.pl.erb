@@ -10,20 +10,18 @@ my $highmask = 30;
 my $usenoncidr = 1;
 my $usecidr = 1;
 # set to 0 to run command locally and 1 to use ssh
-my $usessh = 0;
+my $usessh = <%= @usessh %>; 
 # command that serves PUA data
-my $command = ('/opt/eis_pua/bin/serve');
-#my @cmd = ('/opt/eis_pua/bin/serve');
+my $command = ('<%= @puacommand %>');
 #ssh options
 my @cmd = ('ssh');
 #my @cmd = ('echo');
 # add parameters to commandline if ssh is used
 if ($usessh == 1) {
- #push @cmd, '-q -o UserKnownHostsFile=~/.ssh/known_hosts';
  push @cmd, '-q';
  push @cmd, '-oUserKnownHostsFile=/var/lib/puppet/ssl/puahostfile';
- push @cmd, '-i/opt/eis_pua/id_rsa';
- push @cmd, 'esekipua@esekilx6021';
+ push @cmd, '-i<%= @keypath %>';
+ push @cmd, '<%= @puauser %>@<%= @puahost %>';
  push @cmd, $command;
 } else {
  @cmd = ();

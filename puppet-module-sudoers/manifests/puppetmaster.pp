@@ -2,7 +2,9 @@
 
 class sudoers::puppetmaster(
   $puaserver = undef,
-  $user      = undef,
+  $puauser      = undef,
+  $puacommand   = undef,
+  $usessh      = 1,
   $keypath   = undef,
   $fetcher   = 'fetch2.pl',
 ) {

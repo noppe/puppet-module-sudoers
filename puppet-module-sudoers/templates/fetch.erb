@@ -1,4 +1,4 @@
 #!/bin/sh
 
-ssh <%= @user %>@<%= @puaserver %> -i <%= @keypath %> "/opt/eis_pua/bin/serve $@"
+ssh <%= @puauser %>@<%= @puaserver %> -i <%= @keypath %> "<%= @puacommand %> $@"
 
