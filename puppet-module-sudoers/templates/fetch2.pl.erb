@@ -21,7 +21,7 @@ if ($usessh == 1) {
  push @cmd, '-q';
  push @cmd, '-oUserKnownHostsFile=/var/lib/puppet/ssl/puahostfile';
  push @cmd, '-i<%= @keypath %>';
- push @cmd, '<%= @puauser %>@<%= @puahost %>';
+ push @cmd, '<%= @puauser %>@<%= @puaserver %>';
  push @cmd, $command;
 } else {
  @cmd = ();
