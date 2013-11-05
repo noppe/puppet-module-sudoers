@@ -17,12 +17,14 @@ Permissions for the keyfiles should be 600 and owned by the puppet-user
 
 1. Define something like the following for the puppetmasters
 
+'''
   class { 'sudoers::puppetmaster':
     puaserver  => 'puamaster',
     puauser    => 'puausername',
     puacommand => '/opt/eis_pua/bin/serve',
     keypath    => 'path_to_private_key',
   }
+'''
 
 2. Apply the config on the masters
 
@@ -31,7 +33,9 @@ Permissions for the keyfiles should be 600 and owned by the puppet-user
 
 1. Copy the contents of the ssh public key generated on the puppet masters to .ssh/authorized_keys of the pua user on the pua master 
 2. Define the following in the puppet manisfest for the pua master
+'''
  include sudoers::puaserver
+'''
 3. Apply puppet config on the PUA master
 
 ### Puppet config for clients
@@ -39,8 +43,10 @@ Permissions for the keyfiles should be 600 and owned by the puppet-user
 For clients using standard sudo with sudoers in /etc, the default values should do.
  
 For clients with for example both quest-sudo and standard sudo, you can define multiple target destinations as following:
+'''
 class { 'sudoers':
     target => ['/etc/sudoers','/etc/opt/quest/sudo/sudoers']
   }
+'''
 
 You can also redefine PATH, which is needed in cases where visudo is not in the general paths, /bin:/sbin:/usr/bin:/usr/sbin. Check init.pp for more variables 
