@@ -45,7 +45,7 @@ class sudoers(
   }
 
   exec { 'check_sudoers_cmd' :
-    command     => "visudo -cf ${check_target} && cp ${check_target} ${check_target}.ok",
+    command     => "visudo -cf ${check_target} && cp -p ${check_target} ${check_target}.ok",
     path        => $path,
     refreshonly => true,
     notify => Exec[ 'sudoers_cleanup_cmd' ],
@@ -66,6 +66,7 @@ define deploy_sudoers ($check_target) {
   file { $name :
     ensure => present,
     path   => $name,
+    mode   => $mode,
     source => "${check_target}.ok",
     subscribe => Exec[ 'check_sudoers_cmd' ],
   }
