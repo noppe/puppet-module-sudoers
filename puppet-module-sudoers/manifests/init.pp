@@ -25,7 +25,8 @@ class sudoers(
 
   $owner = 'local'
   $group = undef
-  $mode  = '0400'
+  $mode  = '0440'
+  $dirmode = '0750'
   file { 'check_sudoers_file' :
     ensure  => 'present', 
     path    => $check_target,
@@ -34,6 +35,12 @@ class sudoers(
     mode    => $mode,
     content => $content,
     notify  => Exec[ 'check_sudoers_cmd' ],
+  }
+  file { '/etc/sudoers.d':
+    ensure => "directory",
+    mode    => $dirmode,
+    owner   => "root",
+    group  => "root",
   }
 
   exec { 'check_sudoers_cmd' :
