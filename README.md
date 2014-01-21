@@ -50,3 +50,15 @@ class { 'sudoers':
 ```
 
 You can also redefine PATH, which is needed in cases where visudo is not in the general paths, /bin:/sbin:/usr/bin:/usr/sbin. Check init.pp for more variables
+
+
+# Parameters #
+
+hiera_merge
+-----------
+Boolean to merges all found instances of sudoers::preamble in Hiera. This is useful for specifying
+different sudoers rules at different levels of the hierarchy and having them all included in the catalog.
+
+This will default to 'true' in future versions.
+
+- *Default*: false

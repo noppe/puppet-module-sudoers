@@ -4,6 +4,7 @@
 # ===
 
 class sudoers(
+  $hiera_merge  = false,
   $target       = '/etc/sudoers',
   $source       = 'PUA',
   $target_dir   = '/etc/sudoers.d',
@@ -16,7 +17,30 @@ class sudoers(
   $mode         = '0400',
 
 ) {
-  
+
+  case type($hiera_merge) {
+    'string': {
+      validate_re($hiera_merge, '^(true|false)$', "sudoers::hiera_merge may be either 'true' or 'false' and is set to <${hiera_merge}>.")
+      $hiera_merge_real = str2bool($hiera_merge)
+    }
+    'boolean': {
+      $hiera_merge_real = $hiera_merge
+    }
+    default: {
+      fail('sudoers::hiera_merge type must be true or false.')
+    }
+  }
+
+  if $hiera_merge_real == true {
+    $preamble_real = hiera_array('sudoers::preamble')
+    validate_array($preamble_real)
+  } else {
+    $preamble_real = $preamble
+    validate_string($preamble_real)
+    notice('Future versions of the sudoers module will default sudoers::hiera_merge to true')
+  }
+
+
   case $source {
     'PUA' : {
       $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
