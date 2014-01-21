@@ -7,7 +7,7 @@ class sudoers(
   $target       = '/etc/sudoers',
   $source       = 'PUA',
   $target_dir   = '/etc/sudoers.d',
-  $check_target = "${target_dir}/._check_~",
+  $target_file  = '._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
   $fetcher      = 'fetch2.pl',
@@ -17,6 +17,8 @@ class sudoers(
 
 ) {
   
+  $check_target = "${target_dir}/${target_file}"
+
   case $source {
     'PUA' : {
       $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
