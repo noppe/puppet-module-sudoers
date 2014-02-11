@@ -8,7 +8,7 @@ class sudoers(
   $source       = 'PUA',
   $target_dir   = '/etc/sudoers.d',
   $target_file  = '._check_~',
-  $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
+  $path         = '/bin:/usr/bin:/sbin:/usr/sbin:/opt/csw/sbin:/opt/quest/sbin:/app/sudo/1.8.6p8/bin:/app/sudo/1.8.6p8/sbin',
   $preamble     = '',
   $fetcher      = 'fetch2.pl',
   $owner        = 'root',
@@ -82,5 +82,14 @@ class sudoers(
     command     => "/bin/rm -f ${check_target}",
     path        => $path,
     refreshonly => true,
+  }
+}
+
+  define deploy_sudoers ($check_target) {
+  file { $name :
+    ensure => present,
+    path   => $name,
+    source => "${check_target}.ok",
+    subscribe => Exec[ 'check_sudoers_cmd' ],
   }
 }
