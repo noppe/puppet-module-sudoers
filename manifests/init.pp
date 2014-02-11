@@ -7,7 +7,7 @@ class sudoers(
   $target       = '/etc/sudoers',
   $source       = 'PUA',
   $target_dir   = '/etc/sudoers.d',
-  $check_target = "${target_dir}/._check_~",
+  $target_file  = '._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin',
   $preamble     = '',
   $fetcher      = 'fetch2.pl',
@@ -37,6 +37,8 @@ class sudoers(
     validate_string($preamble_real)
     notice('Future versions of the sudoers module will default sudoers::hiera_merge to true')
   }
+  
+  $check_target = "${target_dir}/${target_file}"
 
   case $source {
     'PUA' : {
