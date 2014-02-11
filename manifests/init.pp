@@ -1,4 +1,3 @@
-#
 # Class sudoers
 #   - Handle sudoers file
 # ===
@@ -15,7 +14,6 @@ class sudoers(
   $owner        = 'root',
   $group        = 'root',
   $mode         = '0400',
-
 ) {
 
   case type($hiera_merge) {
@@ -40,7 +38,6 @@ class sudoers(
     notice('Future versions of the sudoers module will default sudoers::hiera_merge to true')
   }
 
-
   case $source {
     'PUA' : {
       $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
@@ -59,7 +56,7 @@ class sudoers(
   }
 
   file { 'check_sudoers_file' :
-    ensure  => 'present', 
+    ensure  => 'present',
     path    => $check_target,
     owner   => $owner,
     group   => $group,
@@ -72,10 +69,10 @@ class sudoers(
     command     => "visudo -cf ${check_target} && cp -p ${check_target} ${check_target}.ok",
     path        => $path,
     refreshonly => true,
-    notify => Exec[ 'sudoers_cleanup_cmd' ],
+    notify      => Exec[ 'sudoers_cleanup_cmd' ],
   }
 
-  deploy_sudoers { $target : 
+  deploy_sudoers { $target :
     check_target => $check_target
   }
 
@@ -83,15 +80,5 @@ class sudoers(
     command     => "/bin/rm -f ${check_target}",
     path        => $path,
     refreshonly => true,
-  }
-}
-
-define deploy_sudoers ($check_target) {
-  file { $name :
-    ensure => present,
-    path   => $name,
-    mode   => $mode,
-    source => "${check_target}.ok",
-    subscribe => Exec[ 'check_sudoers_cmd' ],
   }
 }

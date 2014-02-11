@@ -1,9 +1,9 @@
-class pua::sudo(
+class sudoers::sudo(
   $version = '1.8',
   $pkgname = 'sudo',
   $altname = 'sudo',
 ) {
-  
+
   package { $pkgname :
     ensure => $version,
     alias  => $altname,
@@ -11,8 +11,8 @@ class pua::sudo(
 
   file { '/bin/sudo' :
     ensure  => link,
-    target  => '/usr/bin/sudo,
+    target  => '/usr/bin/sudo',
     require => Package[ $altname ],
   }
-}
 
+}
