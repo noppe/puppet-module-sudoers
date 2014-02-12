@@ -37,7 +37,7 @@ class sudoers(
     validate_string($preamble_real)
     notice('Future versions of the sudoers module will default sudoers::hiera_merge to true')
   }
-  
+
   $check_target = "${target_dir}/${target_file}"
 
   case $source {
