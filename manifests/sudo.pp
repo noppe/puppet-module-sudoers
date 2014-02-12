@@ -13,7 +13,7 @@ class sudoers::sudo(
   }
 
   if $provider != undef {
-    validate_re($provider, '^[a-zA-Z0-9]+[a-zA-Z0-9_]+$', "sudoers::provider is <${provider}>, which does not match regex for an acceptable name.")
+    validate_re($provider, '^[a-zA-Z0-9]+[a-zA-Z0-9_]+$', "sudoers::sudo::provider is <${provider}>, which does not match regex for an acceptable name.")
   }
 
   if $sudo_pkg_source != undef {
@@ -28,7 +28,7 @@ class sudoers::sudo(
     provider  => $provider,
   }
 
-  if $::kernel == 'Linux' {
+  if $::osfamily != 'Solaris' {
     file { '/bin/sudo' :
       ensure  => link,
       target  => '/usr/bin/sudo',

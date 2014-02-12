@@ -57,7 +57,7 @@ include sudoers::sudo
 
 #in hiera
 #<source>
-sudoers::sudo::sudo_adminfil: '/path-to_admin_file'
+sudoers::sudo::sudo_adminfile: '/path-to_admin_file'
 sudoers::sudo::pkg_source: '/path_to_package_source'
 #<source/>
 
@@ -69,6 +69,7 @@ sudoers::sudo::provider: 'pkgutil'
 # </provider>
 
 Note that there is also a sudo/visudo binary in AFS path /app/sudo/* that can be used on Sparc systems.
+In this case no local sudo package installation is necessary.
 
 # Parameters #
 

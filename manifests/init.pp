@@ -84,12 +84,3 @@ class sudoers(
     refreshonly => true,
   }
 }
-
-  define deploy_sudoers ($check_target) {
-  file { $name :
-    ensure => present,
-    path   => $name,
-    source => "${check_target}.ok",
-    subscribe => Exec[ 'check_sudoers_cmd' ],
-  }
-}
