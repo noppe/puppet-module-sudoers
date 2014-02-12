@@ -51,6 +51,25 @@ class { 'sudoers':
 
 You can also redefine PATH, which is needed in cases where visudo is not in the general paths, /bin:/sbin:/usr/bin:/usr/sbin. Check init.pp for more variables
 
+## For Solaris systems, define the sudo_adminfile and sudo_pkg_source to get packages installed
+
+include sudoers::sudo
+
+#in hiera
+#<source>
+sudoers::sudo::sudo_adminfile: '/path-to_admin_file'
+sudoers::sudo::pkg_source: '/path_to_package_source'
+#<source/>
+
+## or use pkgutil to install CSWsudo
+## proxy should be set accordingly &
+## pkgutil CSW package should already be set up on the system.
+# <provider>
+sudoers::sudo::provider: 'pkgutil'
+# </provider>
+
+Note that there is also a sudo/visudo binary in AFS path /app/sudo/* that can be used on Sparc systems.
+In this case no local sudo package installation is necessary.
 
 # Parameters #
 
