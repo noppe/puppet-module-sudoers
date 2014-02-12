@@ -6,7 +6,7 @@ class sudoers::sudo(
   $sudo_pkg_source = undef,
   $provider        = undef,
 ) {
-  
+
   # validate params
   if $sudo_adminfile != undef {
     validate_absolute_path($sudo_adminfile)

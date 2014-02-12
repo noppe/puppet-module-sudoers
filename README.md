@@ -1,14 +1,21 @@
 # Sudoers module
+
 ## Purpose
 The Purpose of this module is to provide sudoers rules and content from PUA
 It is meant as an interims module to be used until sudo handling been
 unified on the hubs.
+
 ### Usage
 For servers using old eis_sudo module: Remove eis_sudo from nodes manifest, and insert sudoers instead. Set parameters necessary to support i.e quest-sudo
 This will leave the sudo binaries unmaintained, but that is acceptable
 during a limited time period, until QAS  4 is deployed.
 
+### Dependencies
+puppetlabs/stdlib (http://forge.puppetlabs.com/puppetlabs/stdlib/3.2.0)
+
+
 ## Sudoers module quick install guide:
+
 ### Prerequesites
 Generate ssh-keys for the PUA user to a preferred location on, or shared by, the puppet masters and copy the contents of the public key to .ssh/authorized_keys of the PUA master
 Add public ssh key for PUA host in /var/lib/puppet/ssl/puahostfile
