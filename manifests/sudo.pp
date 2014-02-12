@@ -32,7 +32,7 @@ class sudoers::sudo(
     file { '/bin/sudo' :
       ensure  => link,
       target  => '/usr/bin/sudo',
-      require => Package[$altname],
+      require => Package[$pkgname],
     }
   }
 }
