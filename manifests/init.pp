@@ -13,7 +13,7 @@ class sudoers(
   $fetcher      = 'fetch2.pl',
   $owner        = 'root',
   $group        = 'root',
-  $mode         = '0400',
+  $mode         = '0440',
 ) {
 
   case type($hiera_merge) {
