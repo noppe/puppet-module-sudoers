@@ -43,7 +43,11 @@ class sudoers(
   case $source {
     'PUA' : {
       $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
-      $content = template( 'sudoers/sudoers.erb' )
+      $content = template('sudoers/sudoers.erb')
+    }
+    'for_spec_testing_only' : {
+      $rules = '# for spec testing only, if you see this in real life you are in a mess!'
+      $content = template('sudoers/sudoers.erb')
     }
     default : {
       fail( "Sorry, I don't know how to handle ${source} yet." )
