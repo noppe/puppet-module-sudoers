@@ -65,7 +65,8 @@ class sudoers(
   }
 
   deploy_sudoers { $target :
-    check_target => $check_target
+    check_target => $check_target,
+    mode         => $mode,
   }
 
 }
