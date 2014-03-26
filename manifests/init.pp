@@ -5,12 +5,11 @@
 class sudoers(
   $hiera_merge  = false,
   $target       = '/etc/sudoers',
-  $source       = 'PUA',
   $target_dir   = '/etc/sudoers.d',
   $target_file  = '._check_~',
   $path         = '/bin:/usr/bin:/sbin:/usr/sbin:/opt/csw/sbin:/opt/quest/sbin:/app/sudo/1.8.6p8/bin:/app/sudo/1.8.6p8/sbin',
   $preamble     = '',
-  $fetcher      = 'fetch2.pl',
+  $rule_source  = '/opt/eis_pua/bin/fetch2.pl',
   $owner        = 'root',
   $group        = 'root',
   $mode         = '0440',
@@ -39,20 +38,8 @@ class sudoers(
   }
 
   $check_target = "${target_dir}/${target_file}"
-
-  case $source {
-    'PUA' : {
-      $rules = generate( "/opt/eis_pua/bin/${fetcher}", $::hostname, $::fqdn, $::ipaddress)
-      $content = template('sudoers/sudoers.erb')
-    }
-    'for_spec_testing_only' : {
-      $rules = '# for spec testing only, if you see this in real life you are in a mess!'
-      $content = template('sudoers/sudoers.erb')
-    }
-    default : {
-      fail( "Sorry, I don't know how to handle ${source} yet." )
-    }
-  }
+  $rules        = generate($rule_source, $::hostname, $::fqdn, $::ipaddress)
+  $content      = template('sudoers/sudoers.erb')
 
   file { $target_dir :
     ensure => directory,
