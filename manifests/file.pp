@@ -1,3 +1,5 @@
+# == Class: sudoers::file
+#
 class sudoers::file {
 
   exec { 'create_sudoers' :

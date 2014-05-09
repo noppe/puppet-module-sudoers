@@ -1,3 +1,5 @@
+# == Define: sudoers::frag
+#
 define sudoers::frag (
   $path = '',
   $prio = '10',

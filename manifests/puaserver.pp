@@ -1,3 +1,5 @@
+# == Class: sudoers::puaserver
+#
 class sudoers::puaserver(
   $owner         = 'root',
   $group         = 'root',

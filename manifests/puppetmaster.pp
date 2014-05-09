@@ -1,3 +1,5 @@
+# == Class: sudoers::puppetmaster
+#
 class sudoers::puppetmaster(
   $puaserver  = undef,
   $puauser    = undef,

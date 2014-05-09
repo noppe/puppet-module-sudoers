@@ -1,3 +1,5 @@
+# == Class: sudoers::sudo
+#
 class sudoers::sudo(
   $ensure          = 'present',
   $pkgname         = 'sudo',

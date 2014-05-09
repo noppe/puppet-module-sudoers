@@ -1,7 +1,9 @@
 # puppet-module-sudoers
 ===
 
-manage sudoers
+Manage sudoers with PUA
+
+[![Build Status](https://travis-ci.org/Ericsson/puppet-module-sudoers.svg?branch=master)](https://travis-ci.org/Ericsson/puppet-module-sudoers)
 
 ===
 
