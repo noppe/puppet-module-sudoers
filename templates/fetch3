@@ -1,0 +1,24 @@
+#!/bin/sh
+
+paramsdir=/var/tmp/pua-puppet/sudoers-params
+filesdir=/var/tmp/pua-puppet/sudoers-files
+
+PATH=/home/qnilpau/eis/puppet-module-sudoers/templates:$PATH
+pconv.pl $@ > /tmp/.pua.$$
+
+cmp --quiet /tmp/.pua.$$ $paramsdir/$1
+if [ $? -ne 0 ] ; then 
+  cp -f /tmp/.pua.$$ $paramsdir/$1
+  touch $paramsdir/.updated
+fi
+
+rm /tmp/.pua.$$
+
+while [ -d $filesdir/cron-in-progress ] ; do
+  sleep 3
+done 
+
+if [ -f $filesdir/$1 ] ; then
+  cat $filesdir/$1 
+fi
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+paramsdir=/var/tmp/pua-puppet/sudoers-params
+paramstarget=/var/tmp/pua/sudoers-params
+filessource=/var/tmp/pua/sudoers-files
+filesdir=/var/tmp/pua-puppet/sudoers-files
+puaserver=sekalx227
+
+# Send updated params to PUA server
+if [ -f $paramsdir/.updated ] ; then
+  if [ $paramsdir/.updated -nt $paramsdir/.last-puppet-run ] ; then
+    rsync -ae ssh $paramsdir/ $puaserver:$paramstarget/
+  fi
+fi
+touch $paramsdir/.last-puppet-run
+
+# Fetch sudoers from PUA server
+# Do a rudimentary lock around the files sync
+# Check lock in client code
+mkdir $filesdir/.cron-in-progress
+rsync -ae ssh $puaserver:$filessource/ $filesdir/
+rmdir $filesdir/.cron-in-progress

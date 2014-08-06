@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Fetch sudoers from PUA DB
+
+exportcmd=sudoers3
+# paramsdir=/var/run/pua/sudoers-params/
+# filesdir=/var/run/pua/sudoers-files/
+paramsdir=/var/tmp/pua/sudoers-params
+filesdir=/var/tmp/pua/sudoers-files
+clients=`cd $paramsdir ; echo *`
+
+#cd <%= @puatopdir %>
+cd /srv/eis
+. bin/activate
+for client in $clients ; do
+ python manage.py $exportcmd `cat $paramsdir/$client` > $filesdir/$client
+done
+
